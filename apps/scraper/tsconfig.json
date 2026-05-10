@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@job-analyzer/shared": ["../../packages/shared/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "../../packages/shared/src/**/*", "../../apps/api/src/jobs/entities/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

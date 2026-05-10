@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.turbo/
+.next/
+.env
+.env.local
+*.env.local
+
+# Scraper secrets - NEVER commit
+cookies.json
+apps/scraper/cookies.json
+
+# Playwright
+playwright-report/
+test-results/
+blob-report/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
