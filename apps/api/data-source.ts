@@ -6,10 +6,6 @@ import { resolve } from 'path';
 // pnpm sets cwd to apps/api — .env is two levels up at repo root
 config({ path: resolve(process.cwd(), '../../.env') });
 
-import { Job } from './src/jobs/entities/job.entity';
-import { JobAnalysis } from './src/jobs/entities/job-analysis.entity';
-import { CreateJobsTables1746000000000 } from './src/migrations/1746000000000-CreateJobsTables';
-
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DATABASE_HOST || 'localhost',
@@ -17,8 +13,8 @@ const AppDataSource = new DataSource({
   username: process.env.DATABASE_USER || 'postgres',
   password: process.env.DATABASE_PASSWORD || 'postgres',
   database: process.env.DATABASE_NAME || 'job_analyzer',
-  entities: [Job, JobAnalysis],
-  migrations: [CreateJobsTables1746000000000],
+  entities: ['src/**/entities/*.entity.ts'],
+  migrations: ['src/migrations/*.ts'],
   synchronize: false,
   logging: true,
 });

@@ -5,6 +5,7 @@ dist/
 .env
 .env.local
 *.env.local
+pnpm-lock.yaml
 
 # Scraper secrets - NEVER commit
 cookies.json
@@ -25,3 +26,13 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Compiled artifacts leaking into source dirs (from API build including shared via path alias)
+packages/shared/src/**/*.js
+packages/shared/src/**/*.d.ts
+packages/shared/src/**/*.js.map
+packages/shared/src/**/*.d.ts.map
+apps/api/data-source.js
+apps/api/data-source.d.ts
+apps/api/data-source.js.map
+apps/api/data-source.d.ts.map
