@@ -7,7 +7,7 @@
     "build": "nest build",
     "start": "node dist/main.js",
     "lint": "eslint src --ext .ts",
-    "analyze": "pnpm --filter @job-analyzer/shared build && nest build && node dist/apps/api/src/commands/analyze.js",
+    "analyze": "bun --filter @job-analyzer/shared build && nest build && node dist/apps/api/src/commands/analyze.js",
     "migration:run": "tsx data-source.ts",
     "migration:revert": "tsx -e \"import ds from './data-source.ts'; await ds.initialize(); await ds.undoLastMigration(); await ds.destroy();\""
   },

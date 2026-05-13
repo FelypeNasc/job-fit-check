@@ -1,14 +1,15 @@
 {
   "name": "linkedin-job-analyzer",
   "private": true,
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "bun@1.3.14",
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "scrape": "pnpm --filter scraper scrape",
-    "analyze": "pnpm --filter api analyze"
+    "scrape": "bun --filter @job-analyzer/scraper scrape",
+    "analyze": "bun --filter @job-analyzer/api analyze"
   },
   "devDependencies": {
     "turbo": "^2.3.3",
