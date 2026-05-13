@@ -27,9 +27,8 @@ export const CONFIG = {
     workplaceType: '2',
     // sortBy: DD = date, R = relevance
     sortBy: 'DD',
-    // f_TPR: r604800 = last week, r2592000 = last month
-    timePosted: 'r2592000',
+    timePosted: 'r86400',
     // f_E: 3 = Associate, 4 = Mid-Senior
-    experienceLevel: '3,4',
+    experienceLevel: '4',
   },
 } as const;

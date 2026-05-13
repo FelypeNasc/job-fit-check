@@ -19,8 +19,8 @@ export class JobsService {
     const qb = this.jobRepository
       .createQueryBuilder('job')
       .leftJoinAndSelect('job.analysis', 'analysis')
-      .orderBy('analysis.fit_score', 'DESC', 'NULLS LAST')
-      .addOrderBy('job.created_at', 'DESC');
+      .orderBy('analysis.fitScore', 'DESC', 'NULLS LAST')
+      .addOrderBy('job.createdAt', 'DESC');
 
     if (status) {
       qb.andWhere('job.status = :status', { status });
