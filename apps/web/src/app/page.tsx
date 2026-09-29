@@ -7,6 +7,7 @@ import { JobsTable } from '@/components/jobs/jobs-table';
 import { JobsFilters } from '@/components/jobs/jobs-filters';
 import { Pagination } from '@/components/jobs/pagination';
 import { ReanalyzeAllButton } from '@/components/jobs/reanalyze-all-button';
+import { ScrapeButton } from '@/components/jobs/scrape-button';
 
 interface SearchParams {
   page?: string;
@@ -54,7 +55,10 @@ export default function HomePage({ searchParams }: { searchParams: SearchParams 
         </p>
         <div className='flex justify-between w-100'>
           <JobsFilters />
-          <ReanalyzeAllButton />
+          <div className="flex items-center gap-2">
+            <ScrapeButton variant="secondary" size="sm" showIcon />
+            <ReanalyzeAllButton />
+          </div>
         </div>
       </Suspense>
       <Suspense
