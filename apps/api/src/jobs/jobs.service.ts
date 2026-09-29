@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { JobStatus } from '@job-analyzer/shared';
 import { Job } from './entities/job.entity';
+import { JobAnalysis } from './entities/job-analysis.entity';
 import { ListJobsQueryDto } from './dto/list-jobs-query.dto';
 import { UpdateJobStatusDto } from './dto/update-job-status.dto';
 
@@ -11,6 +12,8 @@ export class JobsService {
   constructor(
     @InjectRepository(Job)
     private readonly jobRepository: Repository<Job>,
+    @InjectRepository(JobAnalysis)
+    private readonly analysisRepository: Repository<JobAnalysis>,
   ) {}
 
   async findAll(query: ListJobsQueryDto): Promise<{ data: Job[]; meta: { total: number; page: number; limit: number } }> {
@@ -70,5 +73,11 @@ export class JobsService {
 
   async findPendingJobs(): Promise<Job[]> {
     return this.jobRepository.find({ where: { status: JobStatus.PENDING_ANALYSIS } });
+  }
+
+  async deleteMany(ids: string[]): Promise<{ deleted: number }> {
+    await this.analysisRepository.delete({ job: { id: In(ids) } });
+    await this.jobRepository.delete({ id: In(ids) });
+    return { deleted: ids.length };
   }
 }

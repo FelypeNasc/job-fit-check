@@ -1,6 +1,8 @@
 'use client';
 
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTable, type RowSelectionState } from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -9,118 +11,100 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { MapPin, Zap } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
 import type { JobWithAnalysis } from '@/lib/types';
 import { EmptyJobsState } from './empty-jobs-state';
+import { deleteJobs } from '@/app/actions';
+import { features } from './jobs-table-features';
+import { jobColumns } from './jobs-columns';
 
 interface JobsTableProps {
   jobs: JobWithAnalysis[];
   hasFilters?: boolean;
 }
 
-function ScoreBadge({ score }: { score: number | undefined }) {
-  if (score === undefined) return <span className="text-muted-foreground text-sm">—</span>;
-  const color =
-    score >= 70
-      ? 'bg-green-500/20 text-green-400 border-green-500/30'
-      : score >= 40
-        ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
-        : 'bg-red-500/20 text-red-400 border-red-500/30';
-  return <Badge className={color}>{score}</Badge>;
-}
-
-function RecommendationBadge({ value }: { value: string | undefined }) {
-  if (!value) return <span className="text-muted-foreground text-sm">—</span>;
-  const map: Record<string, { label: string; className: string }> = {
-    apply: { label: 'Aplicar', className: 'bg-green-500/20 text-green-400 border-green-500/30' },
-    maybe: { label: 'Talvez', className: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-    skip: { label: 'Pular', className: 'bg-red-500/20 text-red-400 border-red-500/30' },
-  };
-  const entry = map[value] ?? { label: value, className: '' };
-  return <Badge className={entry.className}>{entry.label}</Badge>;
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const map: Record<string, { label: string; variant: 'default' | 'secondary' | 'outline' }> = {
-    pending_analysis: { label: 'Aguardando', variant: 'outline' },
-    analyzed: { label: 'Analisado', variant: 'secondary' },
-    saved: { label: 'Salvo', variant: 'default' },
-    applied: { label: 'Aplicado', variant: 'default' },
-    rejected: { label: 'Rejeitado', variant: 'outline' },
-  };
-  const entry = map[status] ?? { label: status, variant: 'outline' as const };
-  return <Badge variant={entry.variant}>{entry.label}</Badge>;
-}
-
 export function JobsTable({ jobs, hasFilters = false }: JobsTableProps) {
   const router = useRouter();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [isPending, startTransition] = useTransition();
+
+  const table = useTable({
+    features,
+    data: jobs,
+    columns: jobColumns,
+    getRowId: (row) => row.id,
+    onRowSelectionChange: setRowSelection,
+    state: { rowSelection },
+  });
 
   if (jobs.length === 0) {
     return <EmptyJobsState hasFilters={hasFilters} />;
   }
 
+  const selectedIds = Object.keys(rowSelection);
+
+  function handleDelete() {
+    startTransition(async () => {
+      await deleteJobs(selectedIds);
+      setRowSelection({});
+      router.refresh();
+    });
+  }
+
   return (
-    <div className="rounded-lg border border-border overflow-hidden">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Cargo</TableHead>
-            <TableHead>Empresa</TableHead>
-            <TableHead className="text-center">Score</TableHead>
-            <TableHead className="text-center">Recomendação</TableHead>
-            <TableHead className="text-center">Nível</TableHead>
-            <TableHead className="text-center">Local OK</TableHead>
-            <TableHead>Status</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {jobs.map((job) => (
-            <TableRow
-              key={job.id}
-              className="cursor-pointer hover:bg-accent/50 transition-colors"
-              onClick={() => router.push(`/jobs/${job.id}`)}
-            >
-              <TableCell className="font-medium max-w-xs">
-                <div className="flex items-center gap-2">
-                  <span className="truncate">{job.title}</span>
-                  {job.isEasyApply && (
-                    <Zap size={12} className="text-blue-400 shrink-0" aria-label="Easy Apply" />
-                  )}
-                </div>
-                {job.location && (
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-                    <MapPin size={10} />
-                    {job.location}
-                  </div>
-                )}
-              </TableCell>
-              <TableCell className="text-muted-foreground">{job.company}</TableCell>
-              <TableCell className="text-center">
-                <ScoreBadge score={job.analysis?.fitScore} />
-              </TableCell>
-              <TableCell className="text-center">
-                <RecommendationBadge value={job.analysis?.recommendation} />
-              </TableCell>
-              <TableCell className="text-center text-sm text-muted-foreground">
-                {job.analysis?.levelMatch ?? '—'}
-              </TableCell>
-              <TableCell className="text-center text-sm">
-                {job.analysis == null ? (
-                  <span className="text-muted-foreground">—</span>
-                ) : job.analysis.locationOk ? (
-                  <span className="text-green-400">✓</span>
-                ) : (
-                  <span className="text-red-400">✗</span>
-                )}
-              </TableCell>
-              <TableCell>
-                <StatusBadge status={job.status} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div className="space-y-2">
+      <div className="flex items-center gap-3 px-1 h-9">
+        {selectedIds.length > 0 && (
+          <span className="text-sm text-muted-foreground">
+            {selectedIds.length} selecionada(s)
+          </span>
+        )}
+        <Button
+          variant="destructive"
+          size="sm"
+          disabled={isPending || selectedIds.length === 0}
+          onClick={handleDelete}
+          className="gap-1.5 invisible data-[active=true]:visible"
+          data-active={selectedIds.length > 0}
+        >
+          <Trash2 size={14} />
+          Excluir
+        </Button>
+      </div>
+      <div className="rounded-lg border border-border overflow-hidden">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder ? null : (
+                      <table.FlexRender header={header} />
+                    )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                className="cursor-pointer hover:bg-accent/50 transition-colors"
+                data-state={row.getIsSelected() ? 'selected' : undefined}
+                onClick={() => router.push(`/jobs/${row.id}`)}
+              >
+                {row.getAllCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    <table.FlexRender cell={cell} />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

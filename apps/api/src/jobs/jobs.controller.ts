@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { AnalysisService } from '../analysis/analysis.service';
 import { ListJobsQueryDto } from './dto/list-jobs-query.dto';
 import { UpdateJobStatusDto } from './dto/update-job-status.dto';
+import { DeleteJobsDto } from './dto/delete-jobs.dto';
 
 @Controller('jobs')
 export class JobsController {
@@ -39,5 +40,11 @@ export class JobsController {
     await this.jobsService.findOne(id);
     await this.analysisService.queueJob(id);
     return { data: { message: 'Analysis queued', jobId: id } };
+  }
+
+  @Delete()
+  async deleteMany(@Body() dto: DeleteJobsDto) {
+    const data = await this.jobsService.deleteMany(dto.ids);
+    return { data };
   }
 }
