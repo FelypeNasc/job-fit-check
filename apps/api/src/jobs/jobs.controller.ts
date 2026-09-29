@@ -28,6 +28,12 @@ export class JobsController {
     return { data };
   }
 
+  @Post('reanalyze-all')
+  async reanalyzeAll() {
+    const count = await this.analysisService.queueAll();
+    return { data: { message: 'Analysis queued', count } };
+  }
+
   @Post(':id/analyze')
   async analyzeJob(@Param('id') id: string) {
     await this.jobsService.findOne(id);

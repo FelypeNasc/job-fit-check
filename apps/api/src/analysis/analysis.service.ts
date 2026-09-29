@@ -32,4 +32,14 @@ export class AnalysisService {
 
     return pending.length;
   }
+
+  async queueAll(): Promise<number> {
+    const jobs = await this.jobRepository.find({ select: ['id'] });
+
+    for (const job of jobs) {
+      await this.queueJob(job.id);
+    }
+
+    return jobs.length;
+  }
 }

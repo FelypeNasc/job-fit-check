@@ -6,6 +6,7 @@ import type { JobsListResponse } from '@/lib/types';
 import { JobsTable } from '@/components/jobs/jobs-table';
 import { JobsFilters } from '@/components/jobs/jobs-filters';
 import { Pagination } from '@/components/jobs/pagination';
+import { ReanalyzeAllButton } from '@/components/jobs/reanalyze-all-button';
 
 interface SearchParams {
   page?: string;
@@ -41,11 +42,7 @@ async function JobsList({ searchParams }: { searchParams: SearchParams }) {
   );
 }
 
-export default function HomePage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default function HomePage({ searchParams }: { searchParams: SearchParams }) {
   return (
     <div className="container space-y-6">
       <div>
@@ -55,7 +52,10 @@ export default function HomePage({
         <p className="text-muted-foreground text-sm mt-1">
           Vagas rankeadas por score de compatibilidade
         </p>
-        <JobsFilters />
+        <div className='flex justify-between w-100'>
+          <JobsFilters />
+          <ReanalyzeAllButton />
+        </div>
       </Suspense>
       <Suspense
         fallback={
