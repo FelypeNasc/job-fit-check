@@ -27,13 +27,7 @@ function ScoreBadge({ score }: { score: number | undefined }) {
       : score >= 40
         ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
         : 'bg-red-500/20 text-red-400 border-red-500/30';
-  return (
-    <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${color}`}
-    >
-      {score}
-    </span>
-  );
+  return <Badge className={color}>{score}</Badge>;
 }
 
 function RecommendationBadge({ value }: { value: string | undefined }) {
@@ -44,13 +38,7 @@ function RecommendationBadge({ value }: { value: string | undefined }) {
     skip: { label: 'Pular', className: 'bg-red-500/20 text-red-400 border-red-500/30' },
   };
   const entry = map[value] ?? { label: value, className: '' };
-  return (
-    <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${entry.className}`}
-    >
-      {entry.label}
-    </span>
-  );
+  return <Badge className={entry.className}>{entry.label}</Badge>;
 }
 
 function StatusBadge({ status }: { status: string }) {

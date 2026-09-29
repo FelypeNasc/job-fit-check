@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 import type { JobAnalysis } from '@/lib/types';
 
 interface JobAnalysisProps {
@@ -89,12 +90,7 @@ export function JobAnalysisPanel({ analysis }: JobAnalysisProps) {
             ) : (
               <div className="flex flex-wrap gap-1.5">
                 {analysis.matchingSkills.map((s) => (
-                  <span
-                    key={s}
-                    className="text-xs bg-green-500/15 text-green-400 border border-green-500/25 rounded-full px-2 py-0.5"
-                  >
-                    {s}
-                  </span>
+                  <Badge key={s} className="bg-green-500/15 text-green-400 border-green-500/25">{s}</Badge>
                 ))}
               </div>
             )}
@@ -111,12 +107,7 @@ export function JobAnalysisPanel({ analysis }: JobAnalysisProps) {
             ) : (
               <div className="flex flex-wrap gap-1.5">
                 {analysis.missingSkills.map((s) => (
-                  <span
-                    key={s}
-                    className="text-xs bg-red-500/15 text-red-400 border border-red-500/25 rounded-full px-2 py-0.5"
-                  >
-                    {s}
-                  </span>
+                  <Badge key={s} className="bg-red-500/15 text-red-400 border-red-500/25">{s}</Badge>
                 ))}
               </div>
             )}

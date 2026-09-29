@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/api';
 
@@ -83,12 +84,9 @@ export function EmptyJobsState({ hasFilters }: { hasFilters: boolean }) {
               </p>
             </div>
           ) : (
-            <button
-              onClick={handleTrigger}
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
+            <Button onClick={handleTrigger}>
               Buscar vagas no LinkedIn
-            </button>
+            </Button>
           )}
 
           {errorMsg && (
