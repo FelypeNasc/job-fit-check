@@ -24,7 +24,7 @@ export default async function JobPage({ params }: PageProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
+      <div className="flex justify-between align-center gap-4 h-100">
         <Link
           href="/"
           className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -32,16 +32,14 @@ export default async function JobPage({ params }: PageProps) {
           <ChevronLeft size={14} />
           Voltar
         </Link>
-      </div>
-
-      <div className="flex items-start justify-between gap-4">
-        <div />
         <JobActions jobId={job.id} currentStatus={job.status} jobUrl={job.url} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <JobDetail job={job} />
-        <div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:items-start">
+        <div className="lg:overflow-y-auto lg:max-h-[calc(100vh-12rem)]">
+          <JobDetail job={job} />
+        </div>
+        <div className="lg:overflow-y-auto lg:max-h-[calc(100vh-12rem)]">
           {job.analysis ? (
             <JobAnalysisPanel analysis={job.analysis} />
           ) : (

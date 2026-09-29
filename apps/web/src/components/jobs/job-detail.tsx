@@ -58,7 +58,7 @@ export function JobDetail({ job }: JobDetailProps) {
       <Separator />
       <CardContent className="pt-4">
         <h3 className="text-sm font-medium mb-3">Descrição</h3>
-        <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed max-h-[500px] overflow-y-auto pr-2">
+        <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed pr-2">
           {job.description}
         </div>
       </CardContent>
