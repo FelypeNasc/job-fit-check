@@ -12,9 +12,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Zap } from 'lucide-react';
 import type { JobWithAnalysis } from '@/lib/types';
+import { EmptyJobsState } from './empty-jobs-state';
 
 interface JobsTableProps {
   jobs: JobWithAnalysis[];
+  hasFilters?: boolean;
 }
 
 function ScoreBadge({ score }: { score: number | undefined }) {
@@ -63,15 +65,11 @@ function StatusBadge({ status }: { status: string }) {
   return <Badge variant={entry.variant}>{entry.label}</Badge>;
 }
 
-export function JobsTable({ jobs }: JobsTableProps) {
+export function JobsTable({ jobs, hasFilters = false }: JobsTableProps) {
   const router = useRouter();
 
   if (jobs.length === 0) {
-    return (
-      <div className="rounded-lg border border-border p-12 text-center text-muted-foreground">
-        Nenhuma vaga encontrada.
-      </div>
-    );
+    return <EmptyJobsState hasFilters={hasFilters} />;
   }
 
   return (

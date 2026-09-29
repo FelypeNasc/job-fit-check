@@ -9,6 +9,7 @@ import { JobsModule } from './jobs/jobs.module';
 import { ProfileModule } from './profile/profile.module';
 import { OllamaModule } from './ollama/ollama.module';
 import { AnalysisModule } from './analysis/analysis.module';
+import { ScraperModule } from './scraper/scraper.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { AnalysisModule } from './analysis/analysis.module';
     ProfileModule,
     OllamaModule,
     AnalysisModule,
+    ScraperModule,
   ],
 })
 export class AppModule {}

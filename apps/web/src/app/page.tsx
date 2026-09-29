@@ -19,6 +19,13 @@ async function JobsList({ searchParams }: { searchParams: SearchParams }) {
   const page = Number(searchParams.page ?? 1);
   const params = new URLSearchParams({ page: String(page), limit: '20' });
 
+  const hasFilters = !!(
+    searchParams.status ||
+    searchParams.recommendation ||
+    searchParams.minScore ||
+    searchParams.search
+  );
+
   if (searchParams.status) params.set('status', searchParams.status);
   if (searchParams.recommendation) params.set('recommendation', searchParams.recommendation);
   if (searchParams.minScore) params.set('minScore', searchParams.minScore);
@@ -28,7 +35,7 @@ async function JobsList({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <div className="space-y-4">
-      <JobsTable jobs={jobs} />
+      <JobsTable jobs={jobs} hasFilters={hasFilters} />
       <Pagination page={meta.page} limit={meta.limit} total={meta.total} />
     </div>
   );
@@ -40,14 +47,14 @@ export default function HomePage({
   searchParams: SearchParams;
 }) {
   return (
-    <div className="space-y-6">
+    <div className="container space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Vagas</h1>
+      </div>
+      <Suspense fallback={null}>
         <p className="text-muted-foreground text-sm mt-1">
           Vagas rankeadas por score de compatibilidade
         </p>
-      </div>
-      <Suspense fallback={null}>
         <JobsFilters />
       </Suspense>
       <Suspense
