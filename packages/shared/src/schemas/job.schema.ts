@@ -26,3 +26,16 @@ export const OllamaResponseSchema = z.object({
 });
 
 export type OllamaResponseInput = z.infer<typeof OllamaResponseSchema>;
+
+export const ExtractedProfileSchema = z.object({
+  name: z.string(),
+  location: z.string(),
+  level: z.string(),
+  coreStack: z.array(z.string()),
+  secondaryStack: z.array(z.string()),
+  notExperiencedWith: z.array(z.string()),
+  targetRoles: z.string(),
+  languages: z.array(z.string()),
+});
+
+export type ExtractedProfileInput = z.infer<typeof ExtractedProfileSchema>;

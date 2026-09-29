@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { OllamaResponseSchema, OllamaResponseInput, buildAnalyzeJobPrompt, CandidateProfile } from '@job-analyzer/shared';
+import { OllamaResponseSchema, OllamaResponseInput, ExtractedProfileSchema, ExtractedProfileInput, buildAnalyzeJobPrompt, buildExtractProfilePrompt, CandidateProfile } from '@job-analyzer/shared';
 
 interface JobForAnalysis {
   title: string;
@@ -25,6 +25,46 @@ export class OllamaService {
 
   async analyzeJob(profile: CandidateProfile, job: JobForAnalysis): Promise<OllamaResponseInput> {
     return this.callWithRetry(profile, job, 3);
+  }
+
+  async extractProfile(rawText: string): Promise<ExtractedProfileInput> {
+    const { system, user } = buildExtractProfilePrompt(rawText);
+    let lastError: Error | undefined;
+    const maxAttempts = 3;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        this.logger.log(`Extracting profile from CV (attempt ${attempt}/${maxAttempts})`);
+
+        const response = await firstValueFrom(
+          this.httpService.post('/api/generate', {
+            model: this.model,
+            system,
+            prompt: user,
+            stream: false,
+            format: 'json',
+          }),
+        );
+
+        const raw: string = response.data?.response ?? '';
+        const cleaned = this.extractJson(raw);
+        const parsed = JSON.parse(cleaned) as unknown;
+        const validated = ExtractedProfileSchema.parse(parsed);
+
+        this.logger.log('Profile extraction complete');
+        return validated;
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+        this.logger.warn(`Attempt ${attempt} failed for profile extraction: ${lastError.message}`);
+
+        if (attempt < maxAttempts) {
+          const backoffMs = Math.pow(2, attempt) * 1000;
+          await new Promise((resolve) => setTimeout(resolve, backoffMs));
+        }
+      }
+    }
+
+    throw new Error(`Profile extraction failed after ${maxAttempts} attempts: ${lastError?.message}`);
   }
 
   private async callWithRetry(

@@ -106,16 +106,18 @@ linkedin-job-analyzer/
 
 ## Candidate Profile
 
-The candidate profile used for analysis is stored in the database and editable via the dashboard's profile page. It is injected into every Ollama prompt as context. The profile contains:
+The candidate profile is stored in the database and editable via the dashboard's profile page. It is injected into every Ollama prompt as context. Fields:
 
-- **Name:** CANDIDATE_NAME
-- **Location:** CANDIDATE_LOCATION
-- **Level:** Pleno / Mid-level (3–4 years of experience)
-- **Core stack:** Node.js, NestJS, TypeScript, PostgreSQL, TypeORM, React, Vue.js
-- **Secondary:** Python, React Native, Playwright, Jest, Git, Google Cloud (Pub/Sub, Cloud Scheduler)
-- **Not experienced with:** Java, Kubernetes, AWS (minimal), GraphQL, Elasticsearch
-- **Targets:** Remote roles (Brazil or global), Backend or Fullstack, Mid to Senior level
-- **Languages:** Portuguese (native), English (professional proficiency)
+- **Name**
+- **Location**
+- **Level** (e.g. Junior / Mid-level / Senior)
+- **Core Stack** (primary technologies)
+- **Secondary Skills**
+- **Not Experienced With**
+- **Target Roles**
+- **Languages**
+
+Populate via the profile page — either import a PDF/DOCX resume or fill manually.
 
 ## Ollama Prompt Guidelines
 

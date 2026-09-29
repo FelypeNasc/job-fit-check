@@ -8,6 +8,8 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "api": "bun --filter @job-analyzer/api dev",
+    "web": "bun --filter @job-analyzer/web dev",
     "scrape": "bun --filter @job-analyzer/scraper scrape",
     "analyze": "bun --filter @job-analyzer/api analyze"
   },
