@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { IoAdapter } from '@nestjs/platform-socket.io';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -13,6 +14,7 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+  app.useWebSocketAdapter(new IoAdapter(app.getHttpServer()));
   app.enableCors({ origin: 'http://localhost:3000' });
   const port = process.env.API_PORT || 3001;
   await app.listen(port);

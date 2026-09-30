@@ -8,6 +8,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { JobsModule } from '../jobs/jobs.module';
 import { AnalysisService } from './analysis.service';
 import { AnalysisProcessor } from './analysis.processor';
+import { AnalysisGateway } from './analysis.gateway';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { AnalysisProcessor } from './analysis.processor';
     ProfileModule,
     forwardRef(() => JobsModule),
   ],
-  providers: [AnalysisService, AnalysisProcessor],
+  providers: [AnalysisService, AnalysisProcessor, AnalysisGateway],
   exports: [AnalysisService],
 })
 export class AnalysisModule {}
