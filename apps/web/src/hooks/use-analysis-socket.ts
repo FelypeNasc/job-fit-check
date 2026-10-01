@@ -12,7 +12,7 @@ export interface AnalysisProgressState {
   currentJob: { title: string; company: string } | null;
 }
 
-export function useAnalysisSocket(onAllDone?: () => void) {
+export function useAnalysisSocket(onJobDone?: () => void, onAllDone?: () => void) {
   const [progress, setProgress] = useState<AnalysisProgressState>({
     active: false,
     total: 0,
@@ -20,7 +20,9 @@ export function useAnalysisSocket(onAllDone?: () => void) {
     currentJob: null,
   });
   const socketRef = useRef<Socket | null>(null);
+  const onJobDoneRef = useRef(onJobDone);
   const onAllDoneRef = useRef(onAllDone);
+  onJobDoneRef.current = onJobDone;
   onAllDoneRef.current = onAllDone;
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export function useAnalysisSocket(onAllDone?: () => void) {
     });
 
     const handleDone = () => {
+      onJobDoneRef.current?.();
       setProgress(p => {
         const completed = p.completed + 1;
         const done = completed >= p.total;

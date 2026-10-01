@@ -1,11 +1,19 @@
 'use client';
 
+import { useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAnalysisSocket } from '@/hooks/use-analysis-socket';
 
 export function AnalysisProgressBar() {
   const router = useRouter();
-  const progress = useAnalysisSocket(() => router.refresh());
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const debouncedRefresh = useCallback(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => router.refresh(), 800);
+  }, [router]);
+
+  const progress = useAnalysisSocket(debouncedRefresh, () => router.refresh());
 
   if (!progress.active) return null;
 
