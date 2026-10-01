@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ExtractedProfileInput } from '@job-analyzer/shared';
+import { ExtractedProfileInput } from '@jobfitcheck/shared';
 import { CandidateProfile } from './entities/candidate-profile.entity';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { OllamaService } from '../ollama/ollama.service';

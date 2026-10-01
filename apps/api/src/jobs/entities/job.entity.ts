@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { JobStatus } from '@job-analyzer/shared';
+import { JobStatus } from '@jobfitcheck/shared';
 import { JobAnalysis } from './job-analysis.entity';
 
 @Entity('jobs')

@@ -1,4 +1,4 @@
-# CLAUDE.md — LinkedIn Job Analyzer
+# CLAUDE.md — JobFitCheck
 
 ## Project Overview
 
@@ -9,7 +9,7 @@ Semi-automated tool that scrapes filtered LinkedIn job listings, analyzes fit ag
 Turborepo monorepo with three apps and one shared package:
 
 ```
-linkedin-job-analyzer/
+jobfitcheck/
 ├── apps/
 │   ├── scraper/        # Playwright scripts (standalone TypeScript)
 │   ├── api/            # NestJS backend
@@ -183,7 +183,7 @@ Populate via the profile page — either import a PDF/DOCX resume or fill manual
 # Database
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
-DATABASE_NAME=job_analyzer
+DATABASE_NAME=job_fit_check
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
 
@@ -220,19 +220,19 @@ docker compose up -d
 docker exec -it ollama ollama pull llama3.1:8b
 
 # Run database migrations
-bun --filter @job-analyzer/api migration:run
+bun --filter @jobfitcheck/api migration:run
 
 # Start API (dev)
-bun --filter @job-analyzer/api dev
+bun --filter @jobfitcheck/api dev
 
 # Start dashboard (dev)
-bun --filter @job-analyzer/web dev
+bun --filter @jobfitcheck/web dev
 
 # Run scraper manually
-bun --filter @job-analyzer/scraper scrape
+bun --filter @jobfitcheck/scraper scrape
 
 # Run analysis on pending jobs
-bun --filter @job-analyzer/api analyze
+bun --filter @jobfitcheck/api analyze
 
 # Run tests
 bun test

@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { OllamaResponseSchema, OllamaResponseInput, ExtractedProfileSchema, ExtractedProfileInput, buildAnalyzeJobPrompt, buildExtractProfilePrompt, CandidateProfile } from '@job-analyzer/shared';
+import { OllamaResponseSchema, OllamaResponseInput, ExtractedProfileSchema, ExtractedProfileInput, buildAnalyzeJobPrompt, buildExtractProfilePrompt, CandidateProfile } from '@jobfitcheck/shared';
 
 interface JobForAnalysis {
   title: string;

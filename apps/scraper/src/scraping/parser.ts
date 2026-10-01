@@ -1,5 +1,5 @@
-import { ScrapedJobSchema } from '@job-analyzer/shared';
-import type { ScrapedJobInput } from '@job-analyzer/shared';
+import { ScrapedJobSchema } from '@jobfitcheck/shared';
+import type { ScrapedJobInput } from '@jobfitcheck/shared';
 import { RawJobData } from './extractor.js';
 import { logger } from '../utils/logger.js';
 

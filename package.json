@@ -1,5 +1,5 @@
 {
-  "name": "linkedin-job-analyzer",
+  "name": "jobfitcheck",
   "private": true,
   "packageManager": "bun@1.3.14",
   "workspaces": ["apps/*", "packages/*"],
@@ -8,10 +8,10 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "api": "bun --filter @job-analyzer/api dev",
-    "web": "bun --filter @job-analyzer/web dev",
-    "scrape": "bun --filter @job-analyzer/scraper scrape",
-    "analyze": "bun --filter @job-analyzer/api analyze"
+    "api": "bun --filter @jobfitcheck/api dev",
+    "web": "bun --filter @jobfitcheck/web dev",
+    "scrape": "bun --filter @jobfitcheck/scraper scrape",
+    "analyze": "bun --filter @jobfitcheck/api analyze"
   },
   "devDependencies": {
     "turbo": "^2.3.3",

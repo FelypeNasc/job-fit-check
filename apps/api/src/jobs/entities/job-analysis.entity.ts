@@ -6,7 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { LevelMatch, Recommendation } from '@job-analyzer/shared';
+import { LevelMatch, Recommendation } from '@jobfitcheck/shared';
 import { Job } from './job.entity';
 
 @Entity('job_analyses')

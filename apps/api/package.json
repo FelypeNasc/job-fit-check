@@ -1,5 +1,5 @@
 {
-  "name": "@job-analyzer/api",
+  "name": "@jobfitcheck/api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,12 +7,12 @@
     "build": "nest build",
     "start": "node dist/main.js",
     "lint": "eslint src --ext .ts",
-    "analyze": "bun --filter @job-analyzer/shared build && nest build && node dist/apps/api/src/commands/analyze.js",
+    "analyze": "bun --filter @jobfitcheck/shared build && nest build && node dist/apps/api/src/commands/analyze.js",
     "migration:run": "tsx data-source.ts",
     "migration:revert": "tsx -e \"import ds from './data-source.ts'; await ds.initialize(); await ds.undoLastMigration(); await ds.destroy();\""
   },
   "dependencies": {
-    "@job-analyzer/shared": "workspace:*",
+    "@jobfitcheck/shared": "workspace:*",
     "@nestjs/axios": "^3.1.0",
     "@nestjs/bullmq": "^10.2.0",
     "@nestjs/common": "^10.4.15",

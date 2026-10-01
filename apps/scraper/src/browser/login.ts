@@ -2,7 +2,7 @@ import { Page } from 'playwright';
 import { createInterface } from 'readline';
 import { CONFIG } from '../config.js';
 import { logger } from '../utils/logger.js';
-import { randomBetween, delay } from '@job-analyzer/shared';
+import { randomBetween, delay } from '@jobfitcheck/shared';
 import { SELECTORS } from '../scraping/selectors.js';
 
 async function typeSlowly(page: Page, selector: string, text: string): Promise<void> {

@@ -1,7 +1,7 @@
 import { Page, ElementHandle } from 'playwright';
 import { logger } from '../utils/logger.js';
 import { SELECTORS } from './selectors.js';
-import { randomDelay } from '@job-analyzer/shared';
+import { randomDelay } from '@jobfitcheck/shared';
 
 export interface RawJobData {
   linkedinId: string;

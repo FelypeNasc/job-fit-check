@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "strictPropertyInitialization": false,
     "paths": {
-      "@job-analyzer/shared": ["../../packages/shared/src/index.ts"]
+      "@jobfitcheck/shared": ["../../packages/shared/src/index.ts"]
     }
   },
   "include": ["src/**/*", "../../packages/shared/src/**/*", "../../apps/api/src/jobs/entities/**/*"],

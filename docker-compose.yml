@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_DB: job_analyzer
+      POSTGRES_DB: job_fit_check
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:

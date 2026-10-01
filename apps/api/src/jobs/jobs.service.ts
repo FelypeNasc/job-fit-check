@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { JobStatus } from '@job-analyzer/shared';
+import { JobStatus } from '@jobfitcheck/shared';
 import { Job } from './entities/job.entity';
 import { JobAnalysis } from './entities/job-analysis.entity';
 import { ListJobsQueryDto } from './dto/list-jobs-query.dto';

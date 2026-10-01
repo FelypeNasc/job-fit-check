@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Job as BullJob } from 'bullmq';
-import { JobStatus, LevelMatch, Recommendation } from '@job-analyzer/shared';
+import { JobStatus, LevelMatch, Recommendation } from '@jobfitcheck/shared';
 import { Job } from '../jobs/entities/job.entity';
 import { JobAnalysis } from '../jobs/entities/job-analysis.entity';
 import { OllamaService } from '../ollama/ollama.service';

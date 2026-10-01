@@ -1,4 +1,4 @@
-# LinkedIn Job Analyzer
+# JobFitCheck
 
 Semi-automated tool that scrapes filtered LinkedIn job listings, analyzes fit against a candidate profile using a local LLM (Ollama), ranks opportunities in a dashboard, and facilitates applications with auto-generated cover letters.
 
@@ -26,7 +26,7 @@ Semi-automated tool that scrapes filtered LinkedIn job listings, analyzes fit ag
 ## Project Structure
 
 ```
-linkedin-job-analyzer/
+jobfitcheck/
 ├── apps/
 │   ├── scraper/        # Playwright scripts
 │   ├── api/            # NestJS backend (port 3001)
@@ -49,8 +49,8 @@ linkedin-job-analyzer/
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/your-username/linkedin-job-analyzer.git
-cd linkedin-job-analyzer
+git clone https://github.com/your-username/jobfitcheck.git
+cd jobfitcheck
 bun install
 ```
 
@@ -69,7 +69,7 @@ Required variables:
 # Database
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
-DATABASE_NAME=job_analyzer
+DATABASE_NAME=job_fit_check
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
 
@@ -109,7 +109,7 @@ docker exec -it ollama ollama pull llama3.1:8b
 ### 5. Run database migrations
 
 ```bash
-bun --filter @job-analyzer/api migration:run
+bun --filter @jobfitcheck/api migration:run
 ```
 
 ### 6. Start the API and dashboard
@@ -195,10 +195,10 @@ bun run lint
 bun run test
 
 # Scraper in debug mode (opens Playwright inspector)
-bun --filter @job-analyzer/scraper scrape:debug
+bun --filter @jobfitcheck/scraper scrape:debug
 
 # Revert last migration
-bun --filter @job-analyzer/api migration:revert
+bun --filter @jobfitcheck/api migration:revert
 ```
 
 ## Important Rules

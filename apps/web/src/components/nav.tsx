@@ -16,7 +16,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center gap-6">
-        <span className="font-semibold text-sm">Job Analyzer</span>
+        <span className="font-semibold text-sm">JobFitCheck</span>
         <nav className="flex items-center gap-1">
           {links.map(({ href, label, icon: Icon }) => {
             const active = href === '/' ? pathname === '/' : pathname.startsWith(href);

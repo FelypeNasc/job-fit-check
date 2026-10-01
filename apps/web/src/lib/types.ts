@@ -1,4 +1,4 @@
-import type { Job, JobAnalysis, CandidateProfile } from '@job-analyzer/shared';
+import type { Job, JobAnalysis, CandidateProfile } from '@jobfitcheck/shared';
 
 export type JobWithAnalysis = Job & { analysis: JobAnalysis | null };
 

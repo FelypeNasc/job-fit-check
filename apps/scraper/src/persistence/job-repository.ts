@@ -1,7 +1,7 @@
 import { DataSource, Repository } from 'typeorm';
 import { Job } from '../../../api/src/jobs/entities/job.entity.js';
-import { JobStatus } from '@job-analyzer/shared';
-import type { ScrapedJobInput } from '@job-analyzer/shared';
+import { JobStatus } from '@jobfitcheck/shared';
+import type { ScrapedJobInput } from '@jobfitcheck/shared';
 import { logger } from '../utils/logger.js';
 
 export class JobRepository {

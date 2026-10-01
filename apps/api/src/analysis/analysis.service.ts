@@ -3,7 +3,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { JobStatus } from '@job-analyzer/shared';
+import { JobStatus } from '@jobfitcheck/shared';
 import { Job } from '../jobs/entities/job.entity';
 import { AnalysisGateway } from './analysis.gateway';
 

@@ -1,5 +1,5 @@
 import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
-import { JobStatus, Recommendation } from '@job-analyzer/shared';
+import { JobStatus, Recommendation } from '@jobfitcheck/shared';
 
 export class ListJobsQueryDto {
   @IsOptional()

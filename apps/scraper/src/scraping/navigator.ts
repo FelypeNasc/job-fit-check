@@ -2,7 +2,7 @@ import { Page } from 'playwright';
 import { CONFIG } from '../config.js';
 import { logger } from '../utils/logger.js';
 import { SELECTORS } from './selectors.js';
-import { randomDelay } from '@job-analyzer/shared';
+import { randomDelay } from '@jobfitcheck/shared';
 
 export function buildSearchUrl(startOffset = 0): string {
   const params = new URLSearchParams({

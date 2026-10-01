@@ -4,8 +4,8 @@ import { AnalysisProgressBar } from '@/components/analysis-progress-bar';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'LinkedIn Job Analyzer',
-  description: 'Analise vagas do LinkedIn com IA local',
+  title: 'JobFitCheck',
+  description: 'Analise vagas e avalie seu fit com IA local',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
