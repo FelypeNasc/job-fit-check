@@ -59,6 +59,8 @@ export function parseRawJob(raw: RawJobData): ScrapedJobInput {
     url: raw.url,
     isEasyApply: raw.isEasyApply,
     postedAt,
+    workplaceType: raw.workplaceTypeRaw?.trim() || null,
+    experienceLevel: raw.experienceLevelRaw?.trim() || null,
   };
 
   // Zod validation — throws if invalid

@@ -9,6 +9,8 @@ export const ScrapedJobSchema = z.object({
   url: z.string().url(),
   isEasyApply: z.boolean(),
   postedAt: z.date().nullable(),
+  workplaceType: z.string().nullable().optional(),
+  experienceLevel: z.string().nullable().optional(),
 });
 
 export type ScrapedJobInput = z.infer<typeof ScrapedJobSchema>;

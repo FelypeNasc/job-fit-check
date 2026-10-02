@@ -37,6 +37,12 @@ export class Job {
   @Column({ name: 'posted_at', type: 'timestamp', nullable: true })
   postedAt: Date | null;
 
+  @Column({ name: 'workplace_type', type: 'varchar', nullable: true })
+  workplaceType: string | null;
+
+  @Column({ name: 'experience_level', type: 'varchar', nullable: true })
+  experienceLevel: string | null;
+
   @Column({ type: 'enum', enum: JobStatus, default: JobStatus.PENDING_ANALYSIS })
   status: JobStatus;
 

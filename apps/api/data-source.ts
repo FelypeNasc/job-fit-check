@@ -12,7 +12,7 @@ const AppDataSource = new DataSource({
   port: parseInt(process.env.DATABASE_PORT || '5432', 10),
   username: process.env.DATABASE_USER || 'postgres',
   password: process.env.DATABASE_PASSWORD || 'postgres',
-  database: process.env.DATABASE_NAME || 'job_analyzer',
+  database: process.env.DATABASE_NAME || 'job_fit_check',
   entities: ['src/**/entities/*.entity.ts'],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,

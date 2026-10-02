@@ -12,6 +12,8 @@ export interface RawJobData {
   url: string;
   isEasyApply: boolean;
   postedAtRaw: string | null;
+  workplaceTypeRaw: string | null;
+  experienceLevelRaw: string | null;
 }
 
 async function extractLinkedinId(card: ElementHandle): Promise<string | null> {
@@ -91,6 +93,18 @@ export async function extractJobsFromPage(page: Page): Promise<RawJobData[]> {
           .catch(() => null),
       );
 
+    const workplaceTypeRaw = await page
+      .$eval(SELECTORS.JOB_DETAIL_WORKPLACE_TYPE, (el) => el.textContent?.trim() ?? null)
+      .catch(() => null);
+
+    const experienceLevelRaw = await page
+      .$eval(SELECTORS.JOB_DETAIL_EXPERIENCE_LEVEL, (el) => el.textContent?.trim() ?? null)
+      .catch(async () =>
+        page
+          .$eval(SELECTORS.JOB_DETAIL_EXPERIENCE_LEVEL_ALT, (el) => el.textContent?.trim() ?? null)
+          .catch(() => null),
+      );
+
     const url = `https://www.linkedin.com/jobs/view/${linkedinId}/`;
 
     results.push({
@@ -102,6 +116,8 @@ export async function extractJobsFromPage(page: Page): Promise<RawJobData[]> {
       url,
       isEasyApply,
       postedAtRaw,
+      workplaceTypeRaw,
+      experienceLevelRaw,
     });
 
     logger.info('EXTRACT', `Extracted: "${titleRaw}" at "${companyRaw}"`);

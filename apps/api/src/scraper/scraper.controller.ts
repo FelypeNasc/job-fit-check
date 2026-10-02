@@ -1,5 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ScraperService } from './scraper.service';
+import { TriggerScraperDto } from './dto/trigger-scraper.dto';
 
 @Controller('scraper')
 export class ScraperController {
@@ -11,7 +12,7 @@ export class ScraperController {
   }
 
   @Post('trigger')
-  trigger() {
-    return { data: this.scraperService.trigger() };
+  trigger(@Body() body: TriggerScraperDto) {
+    return { data: this.scraperService.trigger(body) };
   }
 }

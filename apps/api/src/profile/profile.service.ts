@@ -23,9 +23,12 @@ export class ProfileService {
   }
 
   async updateProfile(dto: UpdateProfileDto): Promise<CandidateProfile> {
-    const profile = await this.getProfile();
-    Object.assign(profile, dto);
-    return this.profileRepository.save(profile);
+    const existing = await this.profileRepository.findOne({ where: {} });
+    if (existing) {
+      Object.assign(existing, dto);
+      return this.profileRepository.save(existing);
+    }
+    return this.profileRepository.save(this.profileRepository.create(dto));
   }
 
   async importFromFile(file: Express.Multer.File): Promise<ExtractedProfileInput> {

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk pnpm:*)",
+      "Bash(pnpm --filter @job-analyzer/web exec tsc --noEmit)",
+      "Bash(pnpm --filter api migration:run)",
+      "Bash(rtk tree:*)",
+      "Bash(rtk read:*)",
+      "Bash(rtk ls:*)",
+      "Bash(pnpm dlx:*)",
+      "Bash(pnpm --filter web build)",
+      "Bash(rtk docker:*)",
+      "Bash(rm pnpm-workspace.yaml pnpm-lock.yaml)",
+      "Bash(rm -rf node_modules)",
+      "Bash(bun add:*)"
+    ]
+  }
+}

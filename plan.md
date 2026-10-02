@@ -10,14 +10,14 @@ Ferramenta semi-automatizada que coleta vagas filtradas do LinkedIn, analisa o f
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Playwright  │────▶│   Extractor   │────▶│    Ollama     │────▶│  Dashboard   │
-│   Scraper     │     │   Parser      │     │   Analyzer    │     │  (Next.js)   │
+│   Playwright │───▶│   Extractor  │────▶│    Ollama    │───▶│  Dashboard   │
+│   Scraper    │     │   Parser     │     │   Analyzer   │     │  (Next.js)   │
 └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
       │                                         │                      │
       │                                         ▼                      ▼
       │                                  ┌──────────────┐     ┌──────────────┐
-      │                                  │  Score + Fit  │     │  Easy Apply  │
-      │                                  │   Analysis    │     │  Automator   │
+      │                                  │  Score + Fit │     │  Easy Apply  │
+      │                                  │   Analysis   │     │  Automator   │
       └──────────────────────────────────┴──────────────┘     └──────────────┘
 ```
 
@@ -276,7 +276,7 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_DB: job_analyzer
+      POSTGRES_DB: job_fit_check
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:

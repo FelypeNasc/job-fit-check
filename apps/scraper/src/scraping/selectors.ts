@@ -28,6 +28,11 @@ export const SELECTORS = {
   JOB_DETAIL_EASY_APPLY_BTN: 'button.jobs-apply-button',
   JOB_DETAIL_POSTED_TIME: '.jobs-unified-top-card__posted-date',
   JOB_DETAIL_POSTED_TIME_ALT: '.tvm__text--low-emphasis',
+  // Workplace type (Remote/On-site/Hybrid) — appears in top-card tertiary info
+  JOB_DETAIL_WORKPLACE_TYPE: '.job-details-jobs-unified-top-card__workplace-type',
+  // Seniority level — appears in the job criteria section at the bottom of the description
+  JOB_DETAIL_EXPERIENCE_LEVEL: '.description__job-criteria-list .description__job-criteria-item:first-child .description__job-criteria-text--criteria',
+  JOB_DETAIL_EXPERIENCE_LEVEL_ALT: '.job-details-jobs-unified-top-card__job-insight li:first-child span',
 
   // ─── Pagination ───────────────────────────────────────────────────────────
   NO_RESULTS: '.jobs-search-no-results-banner',

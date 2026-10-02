@@ -17,18 +17,18 @@ export const CONFIG = {
     port: parseInt(process.env.DATABASE_PORT || '5432', 10),
     username: process.env.DATABASE_USER || 'postgres',
     password: process.env.DATABASE_PASSWORD || 'postgres',
-    database: process.env.DATABASE_NAME || 'job_analyzer',
+    database: process.env.DATABASE_NAME || 'job_fit_check',
   },
 
   SEARCH: {
-    keywords: '("backend software engineer" OR "backend developer") OR ("nodejs" or "node js" or "typescript") remote',
-    location: 'Brazil',
+    keywords: process.env.SCRAPER_KEYWORDS ?? '("backend software engineer" OR "backend developer") OR ("nodejs" or "node js" or "typescript") remote',
+    location: process.env.SCRAPER_LOCATION ?? 'Brazil',
     // f_WT: 2 = Remote, 1 = On-site, 3 = Hybrid
-    workplaceType: '2',
+    workplaceType: process.env.SCRAPER_WORKPLACE_TYPE ?? '2',
     // sortBy: DD = date, R = relevance
-    sortBy: 'DD',
-    timePosted: 'r86400',
-    // f_E: 3 = Associate, 4 = Mid-Senior
-    experienceLevel: '4',
+    sortBy: process.env.SCRAPER_SORT_BY ?? 'DD',
+    timePosted: process.env.SCRAPER_TIME_POSTED ?? 'r86400',
+    // f_E: 1 = Internship, 2 = Entry, 3 = Associate, 4 = Mid-Senior, 5 = Director, 6 = Executive
+    experienceLevel: process.env.SCRAPER_EXPERIENCE_LEVEL ?? '4',
   },
-} as const;
+};

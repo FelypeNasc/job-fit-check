@@ -1,8 +1,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ExternalLink, MapPin, Building2, Calendar, Zap } from 'lucide-react';
+import { ExternalLink, MapPin, Building2, Calendar, Zap, Briefcase, BarChart2 } from 'lucide-react';
 import type { JobWithAnalysis } from '@/lib/types';
+
+const WORKPLACE_LABELS: Record<string, string> = {
+  '1': 'Presencial',
+  '2': 'Remoto',
+  '3': 'Híbrido',
+};
+
+const EXPERIENCE_LABELS: Record<string, string> = {
+  '1': 'Estágio',
+  '2': 'Júnior',
+  '3': 'Pleno',
+  '4': 'Sênior',
+  '5': 'Diretor',
+  '6': 'Executivo',
+};
 
 interface JobDetailProps {
   job: JobWithAnalysis;
@@ -10,6 +25,8 @@ interface JobDetailProps {
 
 export function JobDetail({ job }: JobDetailProps) {
   const posted = job.postedAt ? new Date(job.postedAt).toLocaleDateString('pt-BR') : null;
+  const workplace = job.workplaceType ? (WORKPLACE_LABELS[job.workplaceType] ?? job.workplaceType) : null;
+  const level = job.experienceLevel ? (EXPERIENCE_LABELS[job.experienceLevel] ?? job.experienceLevel) : null;
 
   return (
     <Card>
@@ -26,6 +43,18 @@ export function JobDetail({ job }: JobDetailProps) {
                 <span className="flex items-center gap-1">
                   <MapPin size={13} />
                   {job.location}
+                </span>
+              )}
+              {workplace && (
+                <span className="flex items-center gap-1">
+                  <Briefcase size={13} />
+                  {workplace}
+                </span>
+              )}
+              {level && (
+                <span className="flex items-center gap-1">
+                  <BarChart2 size={13} />
+                  {level}
                 </span>
               )}
               {posted && (

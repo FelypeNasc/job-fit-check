@@ -2,6 +2,7 @@ import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { spawn } from 'child_process';
 import * as path from 'path';
 import { AnalysisService } from '../analysis/analysis.service';
+import { TriggerScraperDto } from './dto/trigger-scraper.dto';
 
 @Injectable()
 export class ScraperService {
@@ -14,7 +15,7 @@ export class ScraperService {
     return { running: this.isRunning };
   }
 
-  trigger(): { running: boolean; message: string } {
+  trigger(searchOverrides: TriggerScraperDto = {}): { running: boolean; message: string } {
     if (this.isRunning) {
       throw new ConflictException('Scraper already running');
     }
@@ -26,11 +27,19 @@ export class ScraperService {
     this.logger.log(`Starting scraper in ${scraperDir}`);
     this.isRunning = true;
 
+    const overrideEnv: Record<string, string> = {};
+    if (searchOverrides.keywords) overrideEnv.SCRAPER_KEYWORDS = searchOverrides.keywords;
+    if (searchOverrides.location) overrideEnv.SCRAPER_LOCATION = searchOverrides.location;
+    if (searchOverrides.workplaceType) overrideEnv.SCRAPER_WORKPLACE_TYPE = searchOverrides.workplaceType;
+    if (searchOverrides.sortBy) overrideEnv.SCRAPER_SORT_BY = searchOverrides.sortBy;
+    if (searchOverrides.timePosted) overrideEnv.SCRAPER_TIME_POSTED = searchOverrides.timePosted;
+    if (searchOverrides.experienceLevel) overrideEnv.SCRAPER_EXPERIENCE_LEVEL = searchOverrides.experienceLevel;
+
     const isWin = process.platform === 'win32';
     const child = spawn(
       isWin ? 'cmd.exe' : 'sh',
       isWin ? ['/c', 'bun run scrape'] : ['-c', 'bun run scrape'],
-      { cwd: scraperDir, stdio: 'pipe' },
+      { cwd: scraperDir, stdio: 'pipe', env: { ...process.env, ...overrideEnv } },
     );
 
     child.stdout.on('data', (data: Buffer) => {

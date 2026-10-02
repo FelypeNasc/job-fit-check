@@ -10,6 +10,8 @@ export interface Job {
   url: string;
   isEasyApply: boolean;
   postedAt: Date | null;
+  workplaceType: string | null;
+  experienceLevel: string | null;
   status: JobStatus;
   createdAt: Date;
 }
@@ -23,4 +25,6 @@ export interface ScrapedJob {
   url: string;
   isEasyApply: boolean;
   postedAt: Date | null;
+  workplaceType: string | null;
+  experienceLevel: string | null;
 }

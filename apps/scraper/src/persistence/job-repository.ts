@@ -25,6 +25,8 @@ export class JobRepository {
           location: job.location,
           title: job.title,
           isEasyApply: job.isEasyApply,
+          workplaceType: job.workplaceType ?? null,
+          experienceLevel: job.experienceLevel ?? null,
         });
         logger.info('DB', `Updated: "${job.title}" at "${job.company}" (id: ${job.linkedinId})`);
         updated++;
@@ -38,6 +40,8 @@ export class JobRepository {
           url: job.url,
           isEasyApply: job.isEasyApply,
           postedAt: job.postedAt,
+          workplaceType: job.workplaceType ?? null,
+          experienceLevel: job.experienceLevel ?? null,
           status: JobStatus.PENDING_ANALYSIS,
         });
         logger.info('DB', `Inserted: "${job.title}" at "${job.company}" (id: ${job.linkedinId})`);
