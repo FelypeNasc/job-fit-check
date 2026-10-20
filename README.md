@@ -223,9 +223,10 @@ bun --filter @jobfitcheck/api migration:revert
 - [x] Phase 1 — Playwright scraper
 - [x] Phase 2 — Ollama analyzer + BullMQ queue
 - [x] Phase 3 — Next.js dashboard
-- [x] Phase 4 — Cover Letter (Ollama-generated, included in Phase 2)
-- [ ] Phase 5 — Cover letter editing UI
-- [ ] Phase 6 — Easy Apply automation (with mandatory human review)
+- [x] Phase 4 — Refining
+- [x] Phase 5 — Cover Letter (Ollama-generated, included in Phase 2)
+- [ ] Phase 6 — Cover letter editing UI
+- [ ] Phase 7 — Easy Apply automation (with mandatory human review)
 
 ## Contributing
 
