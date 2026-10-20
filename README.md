@@ -22,6 +22,11 @@ Semi-automated tool that scrapes filtered LinkedIn job listings, analyzes fit ag
 | Queue | BullMQ + Redis 7 |
 | LLM | Ollama (llama3.1:8b) |
 | Monorepo | Turborepo + Bun |
+| Real-Time | Socket.io 4.8 (`@nestjs/websockets` + `socket.io-client`) |
+| UI Components | shadcn/ui (Radix UI + class-variance-authority + tailwind-merge) |
+| Data Tables | TanStack Table |
+| Validation | Zod |
+| File Processing | multer + mammoth (DOCX) + pdf-parse (PDF) |
 
 ## Project Structure
 
@@ -179,8 +184,13 @@ pending_analysis → analyzed → applied
 | GET | `/api/jobs/:id` | Get job + analysis |
 | PATCH | `/api/jobs/:id/status` | Update job status |
 | POST | `/api/jobs/:id/analyze` | Queue job for analysis |
+| POST | `/api/jobs/reanalyze-all` | Queue all jobs for re-analysis |
+| DELETE | `/api/jobs` | Bulk delete jobs (body: `{ ids: string[] }`) |
+| GET | `/api/scraper/status` | Returns `{ running: boolean }` |
+| POST | `/api/scraper/trigger` | Spawn scraper, auto-queues analysis on completion |
 | GET | `/api/profile` | Get candidate profile |
 | PUT | `/api/profile` | Update candidate profile |
+| POST | `/api/profile/import` | Import resume (multipart/form-data, PDF or DOCX) |
 
 ## Development
 
@@ -213,7 +223,7 @@ bun --filter @jobfitcheck/api migration:revert
 - [x] Phase 1 — Playwright scraper
 - [x] Phase 2 — Ollama analyzer + BullMQ queue
 - [x] Phase 3 — Next.js dashboard
-- [ ] Phase 4 — Refining
+- [x] Phase 4 — Cover Letter (Ollama-generated, included in Phase 2)
 - [ ] Phase 5 — Cover letter editing UI
 - [ ] Phase 6 — Easy Apply automation (with mandatory human review)
 
